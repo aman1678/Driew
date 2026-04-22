@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getDramas } from "../api";
 import DramaCard from "../components/DramaCard";
 
-const GENRES = ["", "Romance", "Thriller", "Comedy", "Family", "Historical", "Mystery"];
+const CHANNEL = ["", "ARY", "Geo", "HUM TV", "Green TV"];
 
 export default function Home() {
   const [dramas, setDramas]   = useState([]);
@@ -30,7 +30,7 @@ export default function Home() {
           style={styles.input}
         />
         <select value={genre} onChange={e => setGenre(e.target.value)} style={styles.select}>
-          {GENRES.map(g => <option key={g} value={g}>{g || "All Genres"}</option>)}
+          {CHANNEL.map(g => <option key={g} value={g}>{g || "All Channels"}</option>)}
         </select>
       </div>
 

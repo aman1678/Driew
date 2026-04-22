@@ -10,7 +10,7 @@ export default function Navbar() {
 
   return (
     <nav style={styles.nav}>
-      <Link to="/" style={styles.brand}>😊 Driew</Link>
+      <Link to="/" style={styles.brand}>😜 Driew</Link>
       <div style={styles.links}>
         {user ? (
           <>
