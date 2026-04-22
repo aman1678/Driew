@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Cinzel:wght@600;700&family=Lato:wght@300;400;500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Pakistani-inspired color palette */
+  --emerald:        #1a6b4a;      /* Pakistan flag green */
+  --emerald-light:  #2d9e6e;
+  --emerald-glow:   rgba(26,107,74,0.25);
+  --crimson:        #c0392b;      /* Rich red — bridal/festive */
+  --crimson-light:  #e74c3c;
+  --gold:           #c9a84c;      /* Gold — Mughal architecture */
+  --gold-light:     #f0c96a;
+  --gold-glow:      rgba(201,168,76,0.2);
+  --ivory:          #fdf6e3;      /* Aged parchment */
+  --ivory-dark:     #f0e6c8;
+  --deep-navy:      #0d1b2a;      /* Night sky */
+  --deep-blue:      #1b2a4a;      /* Indigo — ajrak pattern base */
+  --deep-blue-alt:  #243558;
+  --surface:        #1e2d45;
+  --surface-raised: #263650;
+  --text-primary:   #fdf6e3;      /* Ivory text */
+  --text-secondary: #c9b99a;      /* Aged gold text */
+  --text-muted:     #7a8fa6;
+  --border:         rgba(201,168,76,0.2);
+  --border-strong:  rgba(201,168,76,0.45);
+  --star:           #f0c96a;
+  --success:        #2d9e6e;
+  --radius-sm:      4px;
+  --radius-md:      8px;
+  --radius-lg:      16px;
+  --radius-xl:      24px;
+  --shadow-gold:    0 4px 24px rgba(201,168,76,0.15);
+  --shadow-deep:    0 8px 40px rgba(0,0,0,0.6);
+  --transition:     all 0.25s ease;
+}
+
+body {
+  font-family: 'Lato', 'Segoe UI', sans-serif;
+  background: var(--deep-navy);
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.7;
+
+  /* Subtle geometric tile background inspired by Pakistani tilework */
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(201,168,76,0.07) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+
+/* Decorative top border on the page — like a dupatta hem */
+body::before {
+  content: '';
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg,
+    var(--emerald) 0%,
+    var(--gold) 35%,
+    var(--crimson) 65%,
+    var(--gold) 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Headings — Cinzel gives a regal, carved-stone feel */
+h1, h2, h3, h4 {
+  font-family: 'Cinzel', 'Georgia', serif;
+  letter-spacing: 0.03em;
+  color: var(--gold-light);
+}
+
+h1 { font-size: 2.2rem; line-height: 1.2; }
+h2 { font-size: 1.6rem; }
+h3 { font-size: 1.15rem; }
+
+p { color: var(--text-secondary); }
+
+/* Inputs */
+input, textarea, select {
+  font-family: 'Lato', sans-serif;
+  background: var(--surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition: var(--transition);
+  width: 100%;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+  background: var(--surface-raised);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+select option {
+  background: var(--deep-blue);
+  color: var(--text-primary);
+}
+
+/* Buttons */
+button {
+  font-family: 'Lato', sans-serif;
+  cursor: pointer;
+  transition: var(--transition);
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+button:hover  { transform: translateY(-2px); }
+button:active { transform: translateY(0px); }
+
+/* Primary button — gold on dark */
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: var(--deep-navy);
+  border: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-gold);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 28px rgba(201,168,76,0.35);
+}
+
+/* Outline button — emerald border */
+.btn-outline {
+  background: transparent;
+  color: var(--emerald-light);
+  border: 1.5px solid var(--emerald-light);
+  padding: 0.55rem 1.3rem;
+  border-radius: var(--radius-md);
+}
+
+.btn-outline:hover {
+  background: var(--emerald-glow);
+}
+
+/* Cards — like framed miniature paintings */
+.card {
+  background: var(--deep-blue);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-deep);
+  transition: var(--transition);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Gold corner accent on cards */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40px; height: 40px;
+  background: linear-gradient(135deg, var(--gold-glow) 0%, transparent 60%);
+  border-radius: var(--radius-lg) 0 0 0;
+  pointer-events: none;
+}
+
+.card:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-gold), var(--shadow-deep);
+  transform: translateY(-4px);
+}
+
+/* Section divider — inspired by jali (lattice) patterns */
+.divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--border-strong) 20%,
+    var(--gold) 50%,
+    var(--border-strong) 80%,
+    transparent 100%);
+  margin: 1.75rem 0;
+}
+
+/* Badge — genre tags etc */
+.badge {
+  display: inline-block;
+  padding: 0.18rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(201,168,76,0.12);
+  color: var(--gold-light);
+  border: 1px solid var(--border-strong);
+}
+
+.badge-green {
+  background: rgba(26,107,74,0.2);
+  color: var(--emerald-light);
+  border-color: rgba(26,107,74,0.4);
+}
+
+.badge-red {
+  background: rgba(192,57,43,0.2);
+  color: #e07060;
+  border-color: rgba(192,57,43,0.4);
+}
+
+/* Page section header with decorative line */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-header::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-strong), transparent);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--deep-navy); }
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* Page wrapper */
+.page-wrapper {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
