@@ -18,16 +18,24 @@ export default function DramaDetail() {
   const [msg,         setMsg]         = useState("");
 
   useEffect(() => {
-    getDrama(id).then(res => {
-      setDrama(res.data);
-      setAvgRating(res.data.avg_rating);
-    });
+    getDrama(id)
+      .then(res => {
+        setDrama(res.data);
+        setAvgRating(res.data.avg_rating);
+      })
+      .catch(() => {
+        setMsg("Failed to load drama details.");
+      });
   }, [id]);
 
   const handleRating = async (score) => {
-    setUserRating(score);
-    const res = await submitRating({ drama_id: Number(id), score });
-    setAvgRating(res.data.avg_rating);
+    try {
+      setUserRating(score);
+      const res = await submitRating({ drama_id: Number(id), score });
+      setAvgRating(res.data.avg_rating);
+    } catch {
+      setMsg("Failed to submit rating.");
+    }
   };
 
   const handleReview = async () => {

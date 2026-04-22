@@ -10,6 +10,7 @@ export default function ReviewFeed({ dramaId }) {
     setLoading(true);
     getReviews(dramaId, page)
       .then(res => setData(res.data))
+      .catch(() => setData({ reviews: [], total: 0, pages: 1 }))
       .finally(() => setLoading(false));
   }, [dramaId, page]);
 
