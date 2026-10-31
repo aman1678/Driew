@@ -1,12 +1,18 @@
-
+import Card from "./Card";
+import Header from "./Header";
 
 function App() {
-
   return (
-    <>
-    <h1>Hello World</h1>
-    </>
-  )
+    <div>
+      <Header/>
+      <div style={{ display: "flex", gap: "10px" }}>
+        <Card/>
+        <Card/>
+        <Card/>
+        <Card/>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
