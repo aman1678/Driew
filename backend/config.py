@@ -1,0 +1,12 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+
+# Configure app and database
+app = Flask(__name__)
+CORS(app)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///posts.db"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)

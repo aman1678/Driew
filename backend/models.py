@@ -1,15 +1,20 @@
-from flask_sqlalchemy import SQLAlchemy
+from config import db
+from datetime import datetime, timezone
 
-db = SQLAlchemy()
+def utcnow():
+    return datetime.now(timezone.utc)
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    date = db.Column(db.DateTime, default=db.func.now(), nullable=False)
-    description = db.Column(db.String(500), nullable=False)
+    drama = db.Column(db.String(100), nullable=False)
+    date = db.Column(db.DateTime, default=utcnow, nullable=False)
+    description = db.Column(db.Text, nullable=False)
 
     def to_dict(self):
         return {
             "id": self.id,
-            "date": self.date.isoformat() if self.date else None,
+            "drama": self.drama,
+            "date": self.date.isoformat() + "Z" if self.date else None,
             "description": self.description
         }

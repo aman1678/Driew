@@ -1,65 +1,66 @@
-from flask import Flask, jsonify, request
-from flask_cors import CORS
-from models import db, Post
+from flask import request, jsonify
+from models import Post
+from config import app, db
 
 def create_app():
-    app = Flask(__name__)
-    CORS(app)
-    mysql = init_db(app)
 
-    with app.app_context():
-        create_table(mysql)
+    # Get all posts
+    @app.route("/api/posts/all", methods=["GET"])
+    def get_posts():
+        posts = Post.query.all()
+        return jsonify([p.to_dict() for p in posts]), 200
 
-    @app.route("/", methods=["GET"])
-    def home():
-        return "Hello World"
+    # Get posts by drama
+    @app.route("/api/posts/<string:drama>", methods=["GET"])
+    def get_post_by_drama(drama):
+        posts = Post.query.filter_by(drama=drama).all()
+        return jsonify([p.to_dict() for p in posts]), 200
     
-    @app.route("/users", methods=["GET"])
-    def get_users():
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM users")
-        data = cur.fetchall()
-        cur.close()
-
-        users = [{"id": row[0], "firstname": row[1], "lastname": row[2], "email": row[3]} for row in data]
-
-        return jsonify(users)
-
-    app.route("/users", methods=["POST"])
-    def add_user():
+    # Create a post
+    @app.route("/api/posts", methods=["POST"])
+    def create_post():
         data = request.get_json()
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO users (firstname, lastname, email) VALUES(%s, %s, %s)",
-                    (data["firstname"], data["lastname"], data["email"]))
+        if not data or "description" not in data:
+            return jsonify({"error": "Please enter description"}), 400
 
-        mysql.connection.commit()
-        cur.close()
 
-        return jsonify({"message": "User added successfully"}), 201
+        new_post = Post(drama=data["drama"], description=data["description"])
 
-    app.route("/users/<int:id>", methods=["PUT"])
-    def update_user(id):
-        data = request.get_json()
-        cur = mysql.connection.cursor()
+        # Error handling for adding a post
+        try: 
+            db.session.add(new_post)
+            db.session.commit()
+        except Exception as e:
+            return jsonify({"message": str(e)}), 400
 
-        cur.execute("UPDATE users SET firstname=%s, lastname=%s, email=%s WHERE id=%s",
-                    (data["firstname"], data["lastname"], data["email"], id))
         
-        mysql.connection.commit()
-        cur.close()
+        return jsonify(new_post.to_dict()), 201
 
-        return jsonify({"mssage": "User updated"})
+    # Edit an existing post
+    @app.route("/api/posts/<int:post_id>", methods=["PATCH"])
+    def edit_post(post_id):
+        post = Post.query.get(post_id)
 
-    @app.route("/users/<int:id>", methods=["DELETE"])
-    def delete_user(id):
-        cur = mysql.connection.cursor()
-        cur.execute("DELETE FROM users WHERE id=%s", (id,))
-        mysql.connection.commit()
+        if not post:
+            return jsonify({"message": "Post not found"}), 404
 
-        cur.close()
-        return jsonify({"message": "User deleted"})
+        data = request.get_json()
+        post.description = data.get("description", post.description)
 
+        db.session.commit()
+
+        return jsonify(post.to_dict()), 200
+
+    @app.route("/api/delete/<int:post_id>", methods=["DELETE"])
+    def delete_post(post_id):
+        post = Post.query.get(post_id)
+
+        if not post:
+            return jsonify({"message": "Post not found!"}), 404
+
+        db.session.delete(post)
+        db.session.commit()
+
+        return jsonify({"message": "Post successfully deleted"}), 200
+    
     return app
-
-if __name__ == "__main__":
-    create_app().run(debug=True)
