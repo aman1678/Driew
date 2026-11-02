@@ -6,26 +6,53 @@
     text-align: center;
 }
 
-.nav-bar ul {
-    display: flex;
-    justify-content: flex-end;
-    list-style: none;
-    gap: 20px;
-    margin: 0;
-    border-style: solid;
-}
-
-.nav-bar li {
-    border-style: solid;
-    padding: 5px;
-    margin: 5px;
-    border-radius: 5px;
+.nav-bar {
+    height: 50px;
+    border-top-style: solid;
+    border-bottom-style: solid;
 }
 
 .card {
+    text-align: center;
     margin: 10px 0;
     padding: 0 5px;
     border-style: solid;
+    border-radius: 5px;
     width: 200px; 
     height: 230px;
+}
+
+.card a {
+    text-decoration: none;
+}
+
+.cards a:visited {
+    color: rgb(255, 255, 255)
+}
+
+.drama-cards {
+    text-align: center;
+    margin: 0 25%;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+.post-form {
+    margin: 0 25%;
+}
+
+.post-form textarea, input {
+    width: 500px;
+    margin: 5px 0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.post-form button {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.posts {
+    margin: 0 25%;
 }
