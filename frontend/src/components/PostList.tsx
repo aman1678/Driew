@@ -17,6 +17,7 @@ const PostItem = ({ post, onDelete, onUpdate}: PostItemProps) => {
     const save = async () => {
         const ok = await onUpdate(post.id, draft);
         if (ok) setIsEditing(false);
+        window.location.reload();
     };
 
     const cancel = () => {
@@ -25,7 +26,7 @@ const PostItem = ({ post, onDelete, onUpdate}: PostItemProps) => {
     };
 
     return(
-        <li>
+        <li className="edit">
             <p><strong>Date:</strong> {formatDate(post.date)}</p>
             <p><strong>Drama:</strong> {post.drama}</p>
             {isEditing ? (

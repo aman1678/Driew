@@ -58,4 +58,4 @@ backend/   Flask API, database configuration, and post model
 frontend/  React and TypeScript application
 ```
 
-Disclaimer: Copilot was utilized to assist in writting documentation. 
+Disclaimer: Copilot was used to assist in styling and writting documentation. 

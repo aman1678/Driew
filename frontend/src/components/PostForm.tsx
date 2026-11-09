@@ -35,13 +35,14 @@ const PostForm = ({ onCreated }: FormProps) => {
        } else {
         onCreated(await response.json());
         setDescription("");
+        setDrama("");
        }
     }
 
     return(
-        <form onSubmit={onSubmit}>
-            <div className="post-form">
-                <label htmlFor="drama">drama: </label>
+        <div className="post-form">
+            <form onSubmit={onSubmit}>
+                <label htmlFor="drama">Drama: </label>
                 <br/>
                 <input
                     type="text"
@@ -55,12 +56,13 @@ const PostForm = ({ onCreated }: FormProps) => {
                 <textarea
                     name="description"
                     rows={10}
+                    value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
                 <br/>
                 <button type="submit">Submit</button>
-            </div>
-        </form>
+            </form>
+        </div>
     );
 }
 

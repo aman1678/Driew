@@ -1,8 +1,8 @@
 import Card from "./components/Card";
-import Header from "./Header";
+import Header from "./components/Header";
 import Home from "./pages/Home";
 
-const DRAMAS = ["Darenijaat", "Kafeel", "Sharpasand"];
+const DRAMAS = ["Darenijaat", "Kafeel", "Sharpasand", "Meri Zindagi Hain Tu"];
 
 function App() {
   return (

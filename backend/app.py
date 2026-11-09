@@ -20,9 +20,9 @@ def create_app():
     @app.route("/api/posts", methods=["POST"])
     def create_post():
         data = request.get_json()
+
         if not data or "description" not in data:
             return jsonify({"error": "Please enter description"}), 400
-
 
         new_post = Post(drama=data["drama"], description=data["description"])
 
@@ -33,7 +33,6 @@ def create_app():
         except Exception as e:
             return jsonify({"message": str(e)}), 400
 
-        
         return jsonify(new_post.to_dict()), 201
 
     # Edit an existing post
@@ -51,6 +50,7 @@ def create_app():
 
         return jsonify(post.to_dict()), 200
 
+    # Delete an exisitng post
     @app.route("/api/delete/<int:post_id>", methods=["DELETE"])
     def delete_post(post_id):
         post = Post.query.get(post_id)
